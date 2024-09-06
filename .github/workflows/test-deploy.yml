@@ -1,0 +1,40 @@
+name: Test and Deploy ERP System
+
+on:
+  push:
+    branches:
+      - master  # Workflow će se pokrenuti na svaki commit na master granu
+  pull_request:
+    branches:
+      - master  # Workflow će se pokrenuti na svaki pull request na master granu
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        source venv/bin/activate
+        pytest  # Zamijenite ovu liniju s komandom za testiranje koja odgovara vašem okruženju
+
+    - name: Deploy with Gunicorn
+      run: |
+        source venv/bin/activate
+        gunicorn -w 4 -b 0.0.0.0:8000 app:app
+

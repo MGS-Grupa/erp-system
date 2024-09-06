@@ -1,0 +1,44 @@
+version: '3'
+services:
+  prodaja:
+    build: ./prodaja
+    ports:
+      - "5002:5002"
+    environment:
+      - FLASK_ENV=production
+  kvaliteta:
+    build: ./kvaliteta
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=production
+  skladiste:
+    build: ./skladiste
+    ports:
+      - "5006:5006"
+    environment:
+      - FLASK_ENV=production
+  projekti:
+    build: ./projekti
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+  proizvodnja:
+    build: ./proizvodnja
+    ports:
+      - "5003:5003"
+    environment:
+      - FLASK_ENV=production
+  projektiranje:
+    build: ./projektiranje
+    ports:
+      - "5004:5004"
+    environment:
+      - FLASK_ENV=production
+  nabava:
+    build: ./nabava
+    ports:
+      - "5005:5005"
+    environment:
+      - FLASK_ENV=production
